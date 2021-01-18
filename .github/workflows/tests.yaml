@@ -26,8 +26,7 @@ jobs:
           coverage: none
 
       - name: Install dependencies
-          run: |
-            composer install --prefer-dist --no-interaction --no-progress
+          run: composer install --prefer-dist --no-interaction --no-progress
 
       - name: Execute tests
         run: vendor/bin/phpunit --verbose --configuration phpunit.xml.dist
