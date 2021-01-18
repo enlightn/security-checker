@@ -1,6 +1,6 @@
 {
     "name": "enlightn/security-checker",
-    "description": "A PHP dependencies vulnerabilities scanner based on the Security Advisories Database.",
+    "description": "A PHP dependency vulnerabilities scanner based on the Security Advisories Database.",
     "type": "library",
     "keywords": [
         "php",
