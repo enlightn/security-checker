@@ -1,0 +1,56 @@
+{
+    "name": "enlightn/security-checker",
+    "description": "A PHP dependencies vulnerabilities scanner based on the Security Advisories Database.",
+    "type": "library",
+    "keywords": [
+        "php",
+        "package",
+        "security",
+        "scanner",
+        "vulnerability scanner",
+        "security advisories"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Paras Malhotra",
+            "email": "paras@laravel-enlightn.com"
+        },
+        {
+            "name": "Miguel Piedrafita",
+            "email": "soy@miguelpiedrafita.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/enlightn/security-checker/issues"
+    },
+    "require": {
+        "php": "^7.2.5|^8.0",
+        "ext-json": "*",
+        "ext-zip" : "*",
+        "symfony/yaml": "^5.2",
+        "guzzlehttp/guzzle": "^5.0|^6.0|^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.5|^8.0|^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Enlightn\\SecurityChecker\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Enlightn\\SecurityChecker\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit --colors=always",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
