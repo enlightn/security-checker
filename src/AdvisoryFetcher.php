@@ -35,16 +35,18 @@ class AdvisoryFetcher
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function fetchAdvisories()
+    public function fetchAdvisories(): string
     {
         $archivePath = $this->fetchAdvisoriesArchive();
 
-        (new Filesystem)->deleteDirectory($this->getExtractDirectoryPath());
+        (new Filesystem)->deleteDirectory($extractPath = $this->getExtractDirectoryPath());
 
         $zip = new ZipArchive;
         $zip->open($archivePath);
-        $zip->extractTo($this->getExtractDirectoryPath());
+        $zip->extractTo($extractPath);
         $zip->close();
+
+        return $extractPath;
     }
 
     /**
