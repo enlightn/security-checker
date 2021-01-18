@@ -35,7 +35,10 @@ class Composer
         }
 
         return array_merge(...array_map(function ($package) {
-            return [$package['name'] => str_replace('v', '', $package['version'])];
+            return [$package['name'] => [
+                'version' => str_replace('v', '', $package['version']),
+                'time' => $package['time'] ?? null,
+            ]];
         }, $packages));
     }
 }

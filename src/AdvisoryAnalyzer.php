@@ -69,10 +69,25 @@ class AdvisoryAnalyzer
                 }
 
                 $vulnerabilities[] = [
-                    'title' => $advisory['title'],
-                    'link' => $advisory['link'],
+                    'title' => $advisory['title'] ?? null,
+                    'link' => $advisory['link'] ?? null,
                     'cve' => $advisory['cve'] ?? null,
                 ];
+            }
+        }
+
+        return $vulnerabilities;
+    }
+
+    public function analyzeDependencies(array $dependencies): array
+    {
+        $vulnerabilities = [];
+
+        foreach ($dependencies as $package => $versionInfo) {
+            $packageVulnerabilities = $this->analyzeDependency($package, $versionInfo['version'], $versionInfo['time']);
+
+            if (! empty($packageVulnerabilities)) {
+                $vulnerabilities[$package] = $packageVulnerabilities;
             }
         }
 

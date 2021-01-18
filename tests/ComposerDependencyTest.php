@@ -14,10 +14,10 @@ class ComposerDependencyTest extends TestCase
     {
         $dependencies = (new Composer)->getDependencies($this->getFixturesDirectory().DIRECTORY_SEPARATOR.'composer.lock');
 
-        $this->assertSame($dependencies['laravel/framework'], '8.22.1');
-        $this->assertSame($dependencies['voku/portable-ascii'], '1.5.6');
-        $this->assertSame($dependencies['orchestra/testbench'], '6.8.0');
-        $this->assertSame($dependencies['phpunit/phpunit'], '9.5.1');
+        $this->assertSame($dependencies['laravel/framework'], ['version' => '8.22.1', 'time' => '2021-01-13T13:37:56+00:00']);
+        $this->assertSame($dependencies['voku/portable-ascii'], ['version' => '1.5.6', 'time' => '2020-11-12T00:07:28+00:00']);
+        $this->assertSame($dependencies['orchestra/testbench'], ['version' => '6.8.0', 'time' => '2021-01-17T09:03:09+00:00']);
+        $this->assertSame($dependencies['phpunit/phpunit'], ['version' => '9.5.1', 'time' => '2021-01-17T07:42:25+00:00']);
     }
 
     /**
@@ -27,8 +27,8 @@ class ComposerDependencyTest extends TestCase
     {
         $dependencies = (new Composer)->getDependencies($this->getFixturesDirectory().DIRECTORY_SEPARATOR.'composer.lock', true);
 
-        $this->assertSame($dependencies['laravel/framework'], '8.22.1');
-        $this->assertSame($dependencies['voku/portable-ascii'], '1.5.6');
+        $this->assertSame($dependencies['laravel/framework'], ['version' => '8.22.1', 'time' => '2021-01-13T13:37:56+00:00']);
+        $this->assertSame($dependencies['voku/portable-ascii'], ['version' => '1.5.6', 'time' => '2020-11-12T00:07:28+00:00']);
         $this->assertArrayNotHasKey('orchestra/testbench', $dependencies);
         $this->assertArrayNotHasKey('phpunit/phpunit', $dependencies);
     }
@@ -40,10 +40,10 @@ class ComposerDependencyTest extends TestCase
     {
         $dependencies = (new Composer)->getDependencies($this->getFixturesDirectory().DIRECTORY_SEPARATOR.'installed.json');
 
-        $this->assertSame($dependencies['laravel/framework'], '8.22.1');
-        $this->assertSame($dependencies['voku/portable-ascii'], '1.5.6');
-        $this->assertSame($dependencies['orchestra/testbench'], '6.8.0');
-        $this->assertSame($dependencies['phpunit/phpunit'], '9.5.1');
+        $this->assertSame($dependencies['laravel/framework'], ['version' => '8.22.1', 'time' => '2021-01-13T13:37:56+00:00']);
+        $this->assertSame($dependencies['voku/portable-ascii'], ['version' => '1.5.6', 'time' => '2020-11-12T00:07:28+00:00']);
+        $this->assertSame($dependencies['orchestra/testbench'], ['version' => '6.8.0', 'time' => '2021-01-17T09:03:09+00:00']);
+        $this->assertSame($dependencies['phpunit/phpunit'], ['version' => '9.5.1', 'time' => '2021-01-17T07:42:25+00:00']);
     }
 
     protected function getFixturesDirectory()
