@@ -46,3 +46,11 @@ The result above is in JSON format. The key is the package name and the value is
   }
 }
 ```
+
+## Contribution Guide
+
+Thank you for considering contributing to the Enlightn security-checker project! The contribution guide can be found [here](https://www.laravel-enlightn.com/docs/getting-started/contribution-guide.html).
+
+## License
+
+The Enlightn security checkers licensed under the [MIT license](LICENSE.md).
