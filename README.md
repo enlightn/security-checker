@@ -22,6 +22,7 @@ You may also use the API directly in your own code like so:
 use Enlightn\SecurityChecker\AdvisoryAnalyzer;
 use Enlightn\SecurityChecker\AdvisoryFetcher;
 use Enlightn\SecurityChecker\AdvisoryParser;
+use Enlightn\SecurityChecker\Composer;
 
 $parser = new AdvisoryParser((new AdvisoryFetcher)->fetchAdvisories());
 
