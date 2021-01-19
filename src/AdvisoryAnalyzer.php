@@ -84,10 +84,14 @@ class AdvisoryAnalyzer
         $vulnerabilities = [];
 
         foreach ($dependencies as $package => $versionInfo) {
-            $packageVulnerabilities = $this->analyzeDependency($package, $versionInfo['version'], $versionInfo['time']);
+            $advisories = $this->analyzeDependency($package, $versionInfo['version'], $versionInfo['time']);
 
-            if (! empty($packageVulnerabilities)) {
-                $vulnerabilities[$package] = $packageVulnerabilities;
+            if (! empty($advisories)) {
+                $vulnerabilities[$package] = [
+                    'version' => $versionInfo['version'],
+                    'time' => $versionInfo['time'],
+                    'advisories' => $advisories,
+                ];
             }
         }
 

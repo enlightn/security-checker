@@ -4,6 +4,7 @@ namespace Enlightn\SecurityChecker\Tests;
 
 use Enlightn\SecurityChecker\AdvisoryAnalyzer;
 use Enlightn\SecurityChecker\AdvisoryParser;
+use Enlightn\SecurityChecker\Composer;
 use PHPUnit\Framework\TestCase;
 
 class AdvisoryAnalyzerTest extends TestCase
@@ -38,6 +39,42 @@ class AdvisoryAnalyzerTest extends TestCase
             'link' => 'https://github.com/laravel/framework/pull/21320',
             'cve' => 'CVE-2017-14775',
         ]], $analyzer->analyzeDependency('illuminate/auth', '5.5.9'));
+    }
+
+    /**
+     * @test
+     */
+    public function detects_no_vulnerabilities_with_stable_dependencies()
+    {
+        $analyzer = $this->getAnalyzer();
+
+        $dependencies = (new Composer)->getDependencies($this->getFixturesDirectory().DIRECTORY_SEPARATOR.'composer.lock');
+
+        $this->assertEmpty($analyzer->analyzeDependencies($dependencies));
+    }
+
+    /**
+     * @test
+     */
+    public function detects_vulnerable_dependencies()
+    {
+        $analyzer = $this->getAnalyzer();
+
+        $dependencies = (new Composer)->getDependencies($this->getFixturesDirectory().DIRECTORY_SEPARATOR.'vulnerable.lock');
+
+        $this->assertEquals([
+            'laravel/framework' => [
+                'version' => '8.22.0',
+                'time' => '2021-01-13T13:37:56+00:00',
+                'advisories' => [
+                    [
+                        'title' => 'Unexpected bindings in QueryBuilder',
+                        'link' => 'https://blog.laravel.com/security-laravel-62011-7302-8221-released',
+                        'cve' => null,
+                    ],
+                ],
+            ],
+        ], $analyzer->analyzeDependencies($dependencies));
     }
 
     protected function getAnalyzer(): AdvisoryAnalyzer

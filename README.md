@@ -35,12 +35,14 @@ The result above is in JSON format. The key is the package name and the value is
 
 ```json
 {
-  "laravel/framework":[
-    {
-      "title":"Unexpected bindings in QueryBuilder",
-      "link":"https://blog.laravel.com/security-laravel-62011-7302-8221-released",
-      "cve":null
-    }
-  ]
+  "laravel/framework": {
+    "version": "8.22.0",
+    "time": "2021-01-13T13:37:56+00:00",
+    "advisories": [{
+      "title": "Unexpected bindings in QueryBuilder",
+      "link": "https://blog.laravel.com/security-laravel-62011-7302-8221-released",
+      "cve": null
+    }]
+  }
 }
 ```
