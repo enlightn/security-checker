@@ -1,6 +1,11 @@
 Enlightn Security Checker
 ===========================
 
+![tests](https://github.com/enlightn/security-checker/workflows/tests/badge.svg?branch=main)
+[![MIT Licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Latest Stable Version](https://poser.pugx.org/enlightn/security-checker/v/stable?format=flat-square)](https://packagist.org/packages/enlightn/security-checker)
+[![Total Downloads](https://img.shields.io/packagist/dt/enlightn/security-checker.svg?style=flat-square)](https://packagist.org/packages/enlightn/security-checker)
+
 The Enlightn Security Checker is a command line tool that checks if your
 application uses dependencies with known security vulnerabilities. It uses the [Security Advisories Database](https://github.com/FriendsOfPHP/security-advisories).
 
