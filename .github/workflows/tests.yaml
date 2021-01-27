@@ -10,13 +10,21 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [7.3, 7.4, 8.0]
+        php: [7.2, 7.3, 7.4, 8.0]
+        stability: [prefer-lowest, prefer-stable]
 
-    name: P${{ matrix.php }}
+
+    name: P${{ matrix.php }}-${{ matrix.stability }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: ~/.composer/cache/files
+          key: dependencies-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -26,7 +34,7 @@ jobs:
           coverage: none
 
       - name: Install dependencies
-        run: composer install --prefer-dist --no-interaction --no-progress
+        run: composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-progress
 
       - name: Execute tests
         run: vendor/bin/phpunit --verbose --configuration phpunit.xml.dist
