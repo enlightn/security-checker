@@ -55,14 +55,13 @@ EOF
         } catch (Throwable $throwable) {
             $output->writeln(json_encode([
                 'error' => $throwable->getMessage(),
-            ]));
+            ], JSON_PRETTY_PRINT));
 
             return 1;
         }
 
-        $output->writeln(json_encode($result));
-
         if (count($result) > 0) {
+            $output->writeln(json_encode($result, JSON_PRETTY_PRINT));
             return 1;
         }
 
