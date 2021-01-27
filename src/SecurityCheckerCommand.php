@@ -60,9 +60,8 @@ EOF
             return 1;
         }
 
-        $output->writeln(json_encode($result));
-
         if (count($result) > 0) {
+            $output->writeln(json_encode($result));
             return 1;
         }
 
