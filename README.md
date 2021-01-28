@@ -18,22 +18,17 @@ To check for security vulnerabilities in your dependencies, you may run the `sec
 php security-checker security:check /path/to/composer.lock
 ```
 
+This command will return a success status code of `0` if there are no vulnerabilities and `1` if there is at least one vulnerability.
+
 API
 -----------
 
 You may also use the API directly in your own code like so:
 
 ```php
-use Enlightn\SecurityChecker\AdvisoryAnalyzer;
-use Enlightn\SecurityChecker\AdvisoryFetcher;
-use Enlightn\SecurityChecker\AdvisoryParser;
-use Enlightn\SecurityChecker\Composer;
+use Enlightn\SecurityChecker\SecurityChecker;
 
-$parser = new AdvisoryParser((new AdvisoryFetcher)->fetchAdvisories());
-
-$dependencies = (new Composer)->getDependencies('/path/to/composer.lock');
-
-$result = (new AdvisoryAnalyzer($parser->getAdvisories()))->analyzeDependencies($dependencies);
+$result = (new SecurityChecker)->check('/path/to/composer.lock');
 ```
 
 The result above is in JSON format. The key is the package name and the value is an array of vulnerabilities based on your package version. An example is as below:

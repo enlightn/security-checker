@@ -47,11 +47,7 @@ EOF
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         try {
-            $parser = new AdvisoryParser((new AdvisoryFetcher)->fetchAdvisories());
-
-            $dependencies = (new Composer)->getDependencies($input->getArgument('lockfile'));
-
-            $result = (new AdvisoryAnalyzer($parser->getAdvisories()))->analyzeDependencies($dependencies);
+            $result = (new SecurityChecker)->check($input->getArgument('lockfile'));
         } catch (Throwable $throwable) {
             $output->writeln(json_encode([
                 'error' => $throwable->getMessage(),
