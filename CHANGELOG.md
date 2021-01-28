@@ -1,6 +1,11 @@
 # Release Notes
 
-## [Unreleased](https://github.com/enlightn/security-checker/compare/v1.2...master)
+## [Unreleased](https://github.com/enlightn/security-checker/compare/v1.3...master)
+
+## [v1.3 (2021-01-28)](https://github.com/enlightn/security-checker/compare/v1.2...v1.3)
+
+### Added
+- Add simplified API ([#4](https://github.com/enlightn/security-checker/pull/4))
 
 ## [v1.2 (2021-01-27)](https://github.com/enlightn/security-checker/compare/v1.1...v1.2)
 
