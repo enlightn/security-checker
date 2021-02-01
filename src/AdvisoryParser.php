@@ -14,12 +14,12 @@ class AdvisoryParser
 
     private $advisories = [];
 
-    public function __construct(string $advisoriesDirectory)
+    public function __construct($advisoriesDirectory)
     {
         $this->advisoriesDirectory = $advisoriesDirectory;
     }
 
-    public function getAdvisories(): array
+    public function getAdvisories()
     {
         $files = (new Finder)->in($this->advisoriesDirectory)->files()->name('*.yaml');
 

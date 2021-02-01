@@ -77,7 +77,7 @@ class AdvisoryAnalyzerTest extends TestCase
         ], $analyzer->analyzeDependencies($dependencies));
     }
 
-    protected function getAnalyzer(): AdvisoryAnalyzer
+    protected function getAnalyzer()
     {
         $parser = new AdvisoryParser($this->getFixturesDirectory().DIRECTORY_SEPARATOR.'php_security_advisories');
 

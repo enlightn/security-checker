@@ -10,7 +10,7 @@ class SecurityChecker
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function check(string $composerLockPath, $excludeDev = false): array
+    public function check($composerLockPath, $excludeDev = false)
     {
         $parser = new AdvisoryParser((new AdvisoryFetcher)->fetchAdvisories());
 

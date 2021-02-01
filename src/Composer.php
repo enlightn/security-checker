@@ -12,7 +12,7 @@ class Composer
      * @param false $excludeDev
      * @return array
      */
-    public function getDependencies(string $composerLockPath, $excludeDev = false): array
+    public function getDependencies($composerLockPath, $excludeDev = false)
     {
         if (! is_file($composerLockPath)) {
             throw new RuntimeException("File not found at [$composerLockPath]");
@@ -31,13 +31,13 @@ class Composer
         if ($excludeDev) {
             $packages = $json['packages'];
         } else {
-            $packages = array_merge($json['packages'], $json['packages-dev'] ?? []);
+            $packages = array_merge($json['packages'], isset($json['packages-dev']) ? $json['packages-dev'] : []);
         }
 
         return array_merge(...array_map(function ($package) {
             return [$package['name'] => [
                 'version' => str_replace('v', '', $package['version']),
-                'time' => $package['time'] ?? null,
+                'time' => isset($package['time']) ? $package['time'] : null,
             ]];
         }, $packages));
     }
