@@ -1,6 +1,11 @@
 # Release Notes
 
-## [Unreleased](https://github.com/enlightn/security-checker/compare/v1.3...master)
+## [Unreleased](https://github.com/enlightn/security-checker/compare/v1.4...master)
+
+## [v1.4 (2021-02-01)](https://github.com/enlightn/security-checker/compare/v1.3...v1.4)
+
+### Added
+- Support PHP 5.6 ([#6](https://github.com/enlightn/security-checker/pull/6))
 
 ## [v1.3 (2021-01-28)](https://github.com/enlightn/security-checker/compare/v1.2...v1.3)
 
