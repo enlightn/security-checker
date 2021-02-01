@@ -2,11 +2,11 @@
 
 namespace Enlightn\SecurityChecker;
 
+use Exception;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Throwable;
 
 
 class SecurityCheckerCommand extends Command
@@ -48,7 +48,7 @@ EOF
     {
         try {
             $result = (new SecurityChecker)->check($input->getArgument('lockfile'));
-        } catch (Throwable $throwable) {
+        } catch (Exception $throwable) {
             $output->writeln(json_encode([
                 'error' => $throwable->getMessage(),
             ], JSON_PRETTY_PRINT));

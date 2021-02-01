@@ -29,13 +29,13 @@ class AdvisoryFetcher
     public function __construct($tempDir = null)
     {
         $this->client = new Client();
-        $this->tempDir = $tempDir ?? sys_get_temp_dir();
+        $this->tempDir = is_null($tempDir) ? sys_get_temp_dir() : $tempDir;
     }
 
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function fetchAdvisories(): string
+    public function fetchAdvisories()
     {
         $archivePath = $this->fetchAdvisoriesArchive();
 
@@ -53,7 +53,7 @@ class AdvisoryFetcher
      * @return string
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function fetchAdvisoriesArchive(): string
+    public function fetchAdvisoriesArchive()
     {
         $headers = [];
         $cacheResult = [];
@@ -90,7 +90,7 @@ class AdvisoryFetcher
      * @param string $content
      * @return false|int
      */
-    public function storeAdvisoriesArchive(string $content)
+    public function storeAdvisoriesArchive($content)
     {
         return file_put_contents($this->getArchiveFilePath(), $content);
     }
@@ -107,17 +107,17 @@ class AdvisoryFetcher
         return file_get_contents($path);
     }
 
-    public function getCacheFilePath(): string
+    public function getCacheFilePath()
     {
         return $this->tempDir.DIRECTORY_SEPARATOR.self::CACHE_FILE_NAME;
     }
 
-    public function getArchiveFilePath(): string
+    public function getArchiveFilePath()
     {
         return $this->tempDir.DIRECTORY_SEPARATOR.self::ARCHIVE_FILE_NAME;
     }
 
-    public function getExtractDirectoryPath(): string
+    public function getExtractDirectoryPath()
     {
         return $this->tempDir.DIRECTORY_SEPARATOR.self::EXTRACT_PATH;
     }

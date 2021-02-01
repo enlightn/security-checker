@@ -9,7 +9,7 @@ class AdvisoryAnalyzer
      */
     private $advisories;
 
-    public function __construct(array $advisories)
+    public function __construct($advisories)
     {
         $this->advisories = $advisories;
     }
@@ -22,7 +22,7 @@ class AdvisoryAnalyzer
      * @param string|null|int $time
      * @return array
      */
-    public function analyzeDependency(string $package, string $version, $time = null): array
+    public function analyzeDependency($package, $version, $time = null)
     {
         if (! isset($this->advisories[$package])) {
             return [];
@@ -69,9 +69,9 @@ class AdvisoryAnalyzer
                 }
 
                 $vulnerabilities[] = [
-                    'title' => $advisory['title'] ?? null,
-                    'link' => $advisory['link'] ?? null,
-                    'cve' => $advisory['cve'] ?? null,
+                    'title' => isset($advisory['title']) ? $advisory['title'] : null,
+                    'link' => isset($advisory['link']) ? $advisory['link'] : null,
+                    'cve' => isset($advisory['cve']) ? $advisory['cve'] : null,
                 ];
             }
         }
@@ -79,7 +79,7 @@ class AdvisoryAnalyzer
         return $vulnerabilities;
     }
 
-    public function analyzeDependencies(array $dependencies): array
+    public function analyzeDependencies($dependencies)
     {
         $vulnerabilities = [];
 
@@ -98,12 +98,12 @@ class AdvisoryAnalyzer
         return $vulnerabilities;
     }
 
-    protected function normalizeVersion(string $version): string
+    protected function normalizeVersion($version)
     {
         return preg_replace(['/-dev$/', '/^dev-/'], '', $version);
     }
 
-    protected function isDevPackage(string $version): string
+    protected function isDevPackage($version)
     {
         return ! is_null(preg_filter(['/-dev$/', '/^dev-/'], '', $version));
     }
