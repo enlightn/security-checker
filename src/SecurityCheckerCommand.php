@@ -9,7 +9,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-
 class SecurityCheckerCommand extends Command
 {
     protected static $defaultName = 'security:check';
@@ -26,7 +25,8 @@ class SecurityCheckerCommand extends Command
                 new InputOption('format', '', InputOption::VALUE_REQUIRED, 'The output format', 'ansi'),
             ])
             ->setDescription('Checks for vulnerabilities in your project dependencies')
-            ->setHelp(<<<EOF
+            ->setHelp(
+                <<<EOF
 The <info>%command.name%</info> command looks for security vulnerabilities in the
 project dependencies:
 

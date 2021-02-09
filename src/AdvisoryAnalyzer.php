@@ -34,7 +34,7 @@ class AdvisoryAnalyzer
             $time = strtotime($time) ?: null;
         }
 
-        foreach ($this->advisories[$package] as $advisory ) {
+        foreach ($this->advisories[$package] as $advisory) {
             $packageBranchName = $this->normalizeVersion($version);
 
             foreach ($advisory['branches'] as $branch => $versionInfo) {
@@ -59,6 +59,7 @@ class AdvisoryAnalyzer
                             continue;
                         } else {
                             $passed = true;
+
                             break;
                         }
                     }

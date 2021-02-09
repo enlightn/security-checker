@@ -38,9 +38,9 @@ class AnsiFormatter implements FormatterInterface
             foreach ($result as $dependency => $issues) {
                 $dependencyFullName = $dependency.' ('.$issues['version'].')';
                 $output->writeln('<info>'.$dependencyFullName."\n".str_repeat(
-                        '-',
-                        strlen($dependencyFullName)
-                    )."</>\n");
+                    '-',
+                    strlen($dependencyFullName)
+                )."</>\n");
 
                 foreach ($issues['advisories'] as $issue => $details) {
                     $output->write(' * ');

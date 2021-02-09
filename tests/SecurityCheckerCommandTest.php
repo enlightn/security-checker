@@ -19,7 +19,7 @@ class SecurityCheckerCommandTest extends TestCase
         $commandTester = new CommandTester($command);
 
         $commandTester->execute([
-            'lockfile' => $lockFile
+            'lockfile' => $lockFile,
         ]);
 
         $this->assertEquals(1, $commandTester->getStatusCode());
@@ -38,7 +38,7 @@ class SecurityCheckerCommandTest extends TestCase
 
         $commandTester->execute([
             'lockfile' => $lockFile,
-            '--format' => 'json'
+            '--format' => 'json',
         ]);
 
         $this->assertEquals(1, $commandTester->getStatusCode());
