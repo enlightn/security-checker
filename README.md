@@ -9,10 +9,27 @@ Enlightn Security Checker
 The Enlightn Security Checker is a command line tool that checks if your
 application uses dependencies with known security vulnerabilities. It uses the [Security Advisories Database](https://github.com/FriendsOfPHP/security-advisories).
 
+Installation
+------------
+
+1. You may install the Enlightn Security Checker with Composer globally, for use with multiple projects:
+
+```bash
+composer global require enlightn/security-checker
+```
+
+2. You may also install the Enlightn Security Checker in your project as a dev dependency using Composer:
+
+```bash
+composer require --dev enlightn/security-checker
+```
+
+3. Instead of installing via Composer, you may also download the [security-checker.phar](https://www.laravel-enlightn.com/security-checker.phar) file. Then, in the commands below you can replace `security-checker` with `security-checker.phar`.
+
 Usage
 -----
 
-To check for security vulnerabilities in your dependencies, you may run the `security:check` command after a global composer require: 
+To check for security vulnerabilities in your dependencies, you may run the `security:check` command: 
 
 ```bash
 php security-checker security:check /path/to/composer.lock
@@ -24,12 +41,6 @@ By default, this command displays the result in ANSI. You may use the `--format`
 
 ```bash
 php security-checker security:check /path/to/composer.lock --format=json
-```
-
-Instead of installing via Composer, you may also download the [security-checker.phar](https://www.laravel-enlightn.com/security-checker.phar) file:
-
-```bash
-php security-checker.phar security:check /path/to/composer.lock
 ```
 
 API
