@@ -20,6 +20,12 @@ php security-checker security:check /path/to/composer.lock
 
 This command will return a success status code of `0` if there are no vulnerabilities and `1` if there is at least one vulnerability.
 
+By default, this command displays the result in ANSI. You may use the `--format` option to display the result in JSON instead:
+
+```bash
+php security-checker security:check /path/to/composer.lock --format=json
+```
+
 API
 -----------
 
