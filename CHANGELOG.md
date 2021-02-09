@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/enlightn/security-checker/compare/v1.4...master)
+## [Unreleased](https://github.com/enlightn/security-checker/compare/v1.5.0...master)
+
+## [v1.5.0 (2021-02-09)](https://github.com/enlightn/security-checker/compare/v1.4...v1.5.0)
+
+### Added
+- Improve installation instructions with Composer links ([#9](https://github.com/enlightn/security-checker/pull/9))
+- Support multiple formats: ANSI and JSON ([#8](https://github.com/enlightn/security-checker/pull/8))
 
 ## [v1.4 (2021-02-01)](https://github.com/enlightn/security-checker/compare/v1.3...v1.4)
 
