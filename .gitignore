@@ -9,3 +9,4 @@ coverage
 docs
 phpunit.xml
 vendor
+security-checker.phar
