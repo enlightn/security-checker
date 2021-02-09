@@ -23,7 +23,7 @@ class SecurityCheckerCommandTest extends TestCase
         ]);
 
         $this->assertEquals(1, $commandTester->getStatusCode());
-        $this->assertContains('Unexpected bindings in QueryBuilder', $commandTester->getDisplay());
+        $this->assertTrue(strpos($commandTester->getDisplay(), 'Unexpected bindings in QueryBuilder') !== false);
     }
 
     /**
@@ -42,7 +42,7 @@ class SecurityCheckerCommandTest extends TestCase
         ]);
 
         $this->assertEquals(1, $commandTester->getStatusCode());
-        $this->assertContains('Unexpected bindings in QueryBuilder', $commandTester->getDisplay());
+        $this->assertTrue(strpos($commandTester->getDisplay(), 'Unexpected bindings in QueryBuilder') !== false);
         $this->assertJson($commandTester->getDisplay());
     }
 
