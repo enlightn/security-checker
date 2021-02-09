@@ -26,6 +26,12 @@ By default, this command displays the result in ANSI. You may use the `--format`
 php security-checker security:check /path/to/composer.lock --format=json
 ```
 
+Instead of installing via Composer, you may also download the [security-checker.phar](https://www.laravel-enlightn.com/security-checker.phar) file:
+
+```bash
+php security-checker.phar security:check /path/to/composer.lock
+```
+
 API
 -----------
 
