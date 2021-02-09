@@ -6,7 +6,6 @@ use RuntimeException;
 
 class Composer
 {
-
     /**
      * @param string $composerLockPath
      * @param false $excludeDev
