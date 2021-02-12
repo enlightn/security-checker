@@ -9,8 +9,8 @@ Enlightn Security Checker
 The Enlightn Security Checker is a command line tool that checks if your
 application uses dependencies with known security vulnerabilities. It uses the [Security Advisories Database](https://github.com/FriendsOfPHP/security-advisories).
 
-Installation
-------------
+Installation Options
+---------------------
 
 1. You may install the Enlightn Security Checker with Composer globally, for use with multiple projects:
 
