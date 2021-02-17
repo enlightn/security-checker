@@ -1,6 +1,11 @@
 # Release Notes
 
-## [Unreleased](https://github.com/enlightn/security-checker/compare/v1.5.0...master)
+## [Unreleased](https://github.com/enlightn/security-checker/compare/v1.5.1...master)
+
+## [v1.5.1 (2021-02-17)](https://github.com/enlightn/security-checker/compare/v1.5.0...v1.5.1)
+
+### Fixed
+- Fix advisory analyzer for dev package dependencies ([#12](https://github.com/enlightn/security-checker/pull/12))
 
 ## [v1.5.0 (2021-02-09)](https://github.com/enlightn/security-checker/compare/v1.4...v1.5.0)
 
