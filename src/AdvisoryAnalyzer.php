@@ -39,7 +39,7 @@ class AdvisoryAnalyzer
 
             foreach ($advisory['branches'] as $branch => $versionInfo) {
                 if ($this->isDevPackage($version)) {
-                    $branchName = preg_replace('/.x$', '', $branch);
+                    $branchName = preg_replace('/.x$/', '', $branch);
 
                     if ($branchName !== $packageBranchName) {
                         continue;

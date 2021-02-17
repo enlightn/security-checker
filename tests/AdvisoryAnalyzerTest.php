@@ -77,6 +77,30 @@ class AdvisoryAnalyzerTest extends TestCase
         ], $analyzer->analyzeDependencies($dependencies));
     }
 
+    /**
+     * @test
+     */
+    public function detects_vulnerable_dev_package_dependencies()
+    {
+        $analyzer = $this->getAnalyzer();
+
+        $dependencies = (new Composer)->getDependencies($this->getFixturesDirectory().DIRECTORY_SEPARATOR.'branch.lock');
+
+        $this->assertEquals([
+            'doctrine/doctrine-module' => [
+                'version' => 'dev-master',
+                'time' => '2013-05-14T23:57:15+00:00',
+                'advisories' => [
+                    [
+                        'title' => 'Authentication Vulnerability - possible attempt to login via zero-valued password credential',
+                        'link' => 'https://github.com/doctrine/DoctrineModule/issues/249',
+                        'cve' => null,
+                    ],
+                ],
+            ],
+        ], $analyzer->analyzeDependencies($dependencies));
+    }
+
     protected function getAnalyzer()
     {
         $parser = new AdvisoryParser($this->getFixturesDirectory().DIRECTORY_SEPARATOR.'php_security_advisories');
