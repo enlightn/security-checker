@@ -35,7 +35,7 @@ class Composer
 
         return array_merge(...array_map(function ($package) {
             return [$package['name'] => [
-                'version' => str_replace('v', '', $package['version']),
+                'version' => ltrim($package['version'], 'v'),
                 'time' => isset($package['time']) ? $package['time'] : null,
             ]];
         }, $packages));
