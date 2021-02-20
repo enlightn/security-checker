@@ -43,6 +43,12 @@ By default, this command displays the result in ANSI. You may use the `--format`
 php security-checker security:check /path/to/composer.lock --format=json
 ```
 
+**Note**: You would need to provide the full path of the security-checker executable if the directory is not in your path. For instance:
+
+```bash
+php vendor/bin/security-checker security:check /path/to/composer.lock
+```
+
 API
 -----------
 
