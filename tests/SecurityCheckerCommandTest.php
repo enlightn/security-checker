@@ -49,7 +49,7 @@ class SecurityCheckerCommandTest extends TestCase
     /**
      * @test
      */
-    public function scan_issues_in_dev_packages()
+    public function scans_issues_in_dev_packages()
     {
       $lockFile = $this->getFixturesDirectory().DIRECTORY_SEPARATOR.'vulnerable-dev.lock';
 
@@ -58,28 +58,17 @@ class SecurityCheckerCommandTest extends TestCase
 
       $commandTester->execute([
         'lockfile' => $lockFile,
-        '--no-dev' => false // Same value if omitted
+        '--no-dev' => false, // Same value if omitted
       ]);
 
-      self::assertEquals(
-        1,
-        $commandTester->getStatusCode(),
-        "Expected dev package in 'vulnerable-dev.lock' to report a vulnerability"
-      );
-
-      self::assertTrue(
-        strpos(
-          $commandTester->getDisplay(),
-          'RCE vulnerability in phpunit'
-        ) !== false,
-        "Expected dev package in 'vulnerable-dev.lock' to report a vulnerability"
-      );
+      $this->assertEquals(1, $commandTester->getStatusCode());
+      $this->assertTrue(strpos($commandTester->getDisplay(), 'RCE vulnerability in phpunit') !== false);
     }
 
     /**
      * @test
      */
-    public function ignore_issues_in_dev_packages()
+    public function can_ignore_issues_in_dev_packages()
     {
       $lockFile = $this->getFixturesDirectory().DIRECTORY_SEPARATOR.'vulnerable-dev.lock';
 
@@ -88,22 +77,11 @@ class SecurityCheckerCommandTest extends TestCase
 
       $commandTester->execute([
         'lockfile' => $lockFile,
-        '--no-dev' => true
+        '--no-dev' => true,
       ]);
 
-      self::assertEquals(
-        0,
-        $commandTester->getStatusCode(),
-        'Scan has detected a security issue despite excluding dev packages'
-      );
-
-      self::assertTrue(
-        strpos(
-          $commandTester->getDisplay(),
-          '[OK] 0 packages have known vulnerabilities'
-        ) !== false,
-        'Scan has detected a security issue despite excluding dev packages'
-      );
+      $this->assertEquals(0, $commandTester->getStatusCode());
+      $this->assertTrue(strpos($commandTester->getDisplay(), '[OK] 0 packages have known vulnerabilities') !== false);
     }
 
     protected function getFixturesDirectory()
