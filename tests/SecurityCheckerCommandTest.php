@@ -57,9 +57,8 @@ class SecurityCheckerCommandTest extends TestCase
         $commandTester = new CommandTester($command);
 
         $commandTester->execute([
-        'lockfile' => $lockFile,
-        '--no-dev' => false, // Same value if omitted
-      ]);
+            'lockfile' => $lockFile,
+        ]);
 
         $this->assertEquals(1, $commandTester->getStatusCode());
         $this->assertTrue(strpos($commandTester->getDisplay(), 'RCE vulnerability in phpunit') !== false);
