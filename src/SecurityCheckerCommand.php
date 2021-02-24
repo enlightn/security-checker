@@ -22,6 +22,7 @@ class SecurityCheckerCommand extends Command
             ->setName('security:check')
             ->setDefinition([
                 new InputArgument('lockfile', InputArgument::OPTIONAL, 'The path to the composer.lock file', 'composer.lock'),
+                new InputOption('no-dev', '', InputOption::VALUE_OPTIONAL, 'Whether to exclude dev packages from scanning', false),
                 new InputOption('format', '', InputOption::VALUE_REQUIRED, 'The output format', 'ansi'),
             ])
             ->setDescription('Checks for vulnerabilities in your project dependencies')
@@ -54,8 +55,10 @@ EOF
     {
         $formatter = $input->getOption('format') == 'ansi' ? new AnsiFormatter : new JsonFormatter;
 
+        $excludeDev = $input->getOption('no-dev');
+
         try {
-            $result = (new SecurityChecker)->check($input->getArgument('lockfile'));
+            $result = (new SecurityChecker)->check($input->getArgument('lockfile'), $excludeDev);
 
             $formatter->displayResult($output, $result);
         } catch (Exception $throwable) {
