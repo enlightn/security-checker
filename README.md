@@ -43,6 +43,12 @@ By default, this command displays the result in ANSI. You may use the `--format`
 php security-checker security:check /path/to/composer.lock --format=json
 ```
 
+If you would like to exclude dev dependencies from the vulnerabilities scanning, you may use the `--no-dev` option (defaults to false):
+
+```bash
+php security-checker security:check /path/to/composer.lock --no-dev
+```
+
 **Note**: You would need to provide the full path of the security-checker executable if the directory is not in your path. For instance:
 
 ```bash
