@@ -1,6 +1,11 @@
 # Release Notes
 
-## [Unreleased](https://github.com/enlightn/security-checker/compare/v1.5.1...master)
+## [Unreleased](https://github.com/enlightn/security-checker/compare/v1.6.0...master)
+
+## [v1.6.0 (2021-02-24)](https://github.com/enlightn/security-checker/compare/v1.5.1...v1.6.0)
+
+### Added
+- Add option to exclude dev dependencies from scanning ([#14](https://github.com/enlightn/security-checker/pull/14))
 
 ## [v1.5.1 (2021-02-17)](https://github.com/enlightn/security-checker/compare/v1.5.0...v1.5.1)
 
