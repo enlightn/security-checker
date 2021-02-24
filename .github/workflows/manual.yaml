@@ -1,6 +1,11 @@
-name: tests
+name: Run Manual Tests
 
-on: [push]
+on:
+  workflow_dispatch:
+    inputs:
+      git-ref:
+        description: Git Ref (Optional)
+        required: false
 
 jobs:
   tests:
@@ -11,18 +16,18 @@ jobs:
         php: [5.6, 7.2, 7.3, 7.4, 8.0]
         stability: [prefer-lowest, prefer-stable]
 
-
     name: P${{ matrix.php }}-${{ matrix.stability }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        if: github.event.inputs.git-ref == ''
 
-      - name: Cache dependencies
-        uses: actions/cache@v1
+      - name: Checkout code (Custom Ref)
+        uses: actions/checkout@v2
+        if: github.event.inputs.git-ref != ''
         with:
-          path: ~/.composer/cache/files
-          key: dependencies-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
+          ref: ${{ github.event.inputs.git-ref }}
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
