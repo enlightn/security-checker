@@ -1,5 +1,4 @@
-Enlightn Security Checker
-===========================
+# Enlightn Security Checker
 
 ![tests](https://github.com/enlightn/security-checker/workflows/tests/badge.svg?branch=main)
 [![MIT Licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
@@ -9,8 +8,7 @@ Enlightn Security Checker
 The Enlightn Security Checker is a command line tool that checks if your
 application uses dependencies with known security vulnerabilities. It uses the [Security Advisories Database](https://github.com/FriendsOfPHP/security-advisories).
 
-Installation Options
----------------------
+## Installation Options
 
 1. You may install the Enlightn Security Checker with Composer globally, for use with multiple projects:
 
@@ -26,8 +24,7 @@ composer require --dev enlightn/security-checker
 
 3. Instead of installing via Composer, you may also download the [security-checker.phar](https://www.laravel-enlightn.com/security-checker.phar) file. Then, in the commands below you can replace `security-checker` with `security-checker.phar`.
 
-Usage
------
+## Usage
 
 To check for security vulnerabilities in your dependencies, you may run the `security:check` command: 
 
@@ -37,11 +34,23 @@ php security-checker security:check /path/to/composer.lock
 
 This command will return a success status code of `0` if there are no vulnerabilities and `1` if there is at least one vulnerability.
 
+**Note**: You would need to provide the full path of the security-checker executable if the directory is not in your path. For instance:
+
+```bash
+php vendor/bin/security-checker security:check /path/to/composer.lock
+```
+
+## Options
+
+### Format
+
 By default, this command displays the result in ANSI. You may use the `--format` option to display the result in JSON instead:
 
 ```bash
 php security-checker security:check /path/to/composer.lock --format=json
 ```
+
+### Exclude Dev Dependencies
 
 If you would like to exclude dev dependencies from the vulnerabilities scanning, you may use the `--no-dev` option (defaults to false):
 
@@ -49,14 +58,15 @@ If you would like to exclude dev dependencies from the vulnerabilities scanning,
 php security-checker security:check /path/to/composer.lock --no-dev
 ```
 
-**Note**: You would need to provide the full path of the security-checker executable if the directory is not in your path. For instance:
+### Custom Directory for Caching Advisories Database
+
+By default, the `SecurityChecker` API and the `security:check` command use the directory returned by the `sys_get_temp_dir` PHP function for storing the cached advisories database. If you wish to modify the directory, you may use the `--temp-dir` option:
 
 ```bash
-php vendor/bin/security-checker security:check /path/to/composer.lock
+php security-checker security:check /path/to/composer.lock --temp-dir=/tmp
 ```
 
-API
------------
+## API
 
 You may also use the API directly in your own code like so:
 
