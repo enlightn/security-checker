@@ -24,7 +24,7 @@ class SecurityCheckerCommand extends Command
                 new InputArgument('lockfile', InputArgument::OPTIONAL, 'The path to the composer.lock file', 'composer.lock'),
                 new InputOption('no-dev', null, InputOption::VALUE_NONE, 'Whether to exclude dev packages from scanning'),
                 new InputOption('format', null, InputOption::VALUE_REQUIRED, 'The output format', 'ansi'),
-                new InputOption('tmp-dir', null, InputOption::VALUE_REQUIRED, 'The temp directory to use for package data', null),
+                new InputOption('temp-dir', null, InputOption::VALUE_REQUIRED, 'The temp directory to use for caching', null),
             ])
             ->setDescription('Checks for vulnerabilities in your project dependencies')
             ->setHelp(
@@ -58,7 +58,7 @@ EOF
 
         $excludeDev = $input->getOption('no-dev');
 
-        $tempDir = $input->getOption('tmp-dir');
+        $tempDir = $input->getOption('temp-dir');
 
         try {
             $result = (new SecurityChecker($tempDir))->check($input->getArgument('lockfile'), $excludeDev);

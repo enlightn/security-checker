@@ -4,7 +4,6 @@ namespace Enlightn\SecurityChecker;
 
 class SecurityChecker
 {
-
     /**
      * @var string
      */
