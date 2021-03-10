@@ -76,7 +76,7 @@ use Enlightn\SecurityChecker\SecurityChecker;
 $result = (new SecurityChecker)->check('/path/to/composer.lock');
 ```
 
-The result above is in JSON format. The key is the package name and the value is an array of vulnerabilities based on your package version. An example is as below:
+The result above is an associative array. The key is the package name and the value is an array of vulnerabilities based on your package version. An example of the JSON encoded version is as below:
 
 ```json
 {
