@@ -4,7 +4,6 @@ namespace Enlightn\SecurityChecker;
 
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
-use ZipArchive;
 
 class AdvisoryFetcher
 {
@@ -41,10 +40,8 @@ class AdvisoryFetcher
 
         (new Filesystem)->deleteDirectory($extractPath = $this->getExtractDirectoryPath());
 
-        $zip = new ZipArchive;
-        $zip->open($archivePath);
-        $zip->extractTo($extractPath);
-        $zip->close();
+        $zip = new ZipExtractor;
+        $zip->extract($archivePath, $extractPath);
 
         return $extractPath;
     }
