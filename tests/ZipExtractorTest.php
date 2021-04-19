@@ -2,12 +2,8 @@
 
 namespace Enlightn\SecurityChecker\Tests;
 
-use Enlightn\SecurityChecker\AdvisoryFetcher;
 use Enlightn\SecurityChecker\Filesystem;
 use Enlightn\SecurityChecker\ZipExtractor;
-use GuzzleHttp\Client;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Middleware;
 use PHPUnit\Framework\TestCase;
 
 class ZipExtractorTest extends TestCase
