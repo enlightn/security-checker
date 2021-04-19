@@ -1,6 +1,11 @@
 # Release Notes
 
-## [Unreleased](https://github.com/enlightn/security-checker/compare/v1.7.0...master)
+## [Unreleased](https://github.com/enlightn/security-checker/compare/v1.8.0...master)
+
+## [v1.8.0 (2021-04-19)](https://github.com/enlightn/security-checker/compare/v1.7.0...v1.8.0)
+
+### Changed
+- Drop ext-zip requirement via unzip command ([#19](https://github.com/enlightn/security-checker/pull/19))
 
 ## [v1.7.0 (2021-03-03)](https://github.com/enlightn/security-checker/compare/v1.6.1...v1.7.0)
 
