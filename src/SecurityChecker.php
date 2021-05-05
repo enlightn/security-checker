@@ -17,15 +17,16 @@ class SecurityChecker
     /**
      * @param string $composerLockPath
      * @param false $excludeDev
+     * @param array $allowList
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function check($composerLockPath, $excludeDev = false)
+    public function check($composerLockPath, $excludeDev = false, $allowList = [])
     {
         $parser = new AdvisoryParser((new AdvisoryFetcher($this->tempDir))->fetchAdvisories());
 
         $dependencies = (new Composer)->getDependencies($composerLockPath, $excludeDev);
 
-        return (new AdvisoryAnalyzer($parser->getAdvisories()))->analyzeDependencies($dependencies);
+        return (new AdvisoryAnalyzer($parser->getAdvisories($allowList)))->analyzeDependencies($dependencies);
     }
 }

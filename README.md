@@ -58,6 +58,16 @@ If you would like to exclude dev dependencies from the vulnerabilities scanning,
 php security-checker security:check /path/to/composer.lock --no-dev
 ```
 
+### Allow vulnerabilities
+
+If you would like to exclude some vulnerability, you can use the option `--allow-list` passing the CVE identifier or the CVE title as value, you can pass multiple values too:
+
+```bash
+php security-checker security:check /path/to/composer.lock --allow-list CVE-2018-15133 --allow-list "untrusted X-XSRF-TOKEN value"
+```
+
+Do not forget to wrap the title with quotes
+
 ### Custom Directory for Caching Advisories Database
 
 By default, the `SecurityChecker` API and the `security:check` command use the directory returned by the `sys_get_temp_dir` PHP function for storing the cached advisories database. If you wish to modify the directory, you may use the `--temp-dir` option:

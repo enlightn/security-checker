@@ -83,6 +83,48 @@ class SecurityCheckerCommandTest extends TestCase
         $this->assertTrue(strpos($commandTester->getDisplay(), '[OK] 0 packages have known vulnerabilities') !== false);
     }
 
+    /**
+     * @test
+     */
+    public function can_allow_vulnerabilities_by_cve()
+    {
+        $lockFile = $this->getFixturesDirectory().DIRECTORY_SEPARATOR.'vulnerable-dev.lock';
+
+        $command = new SecurityCheckerCommand;
+        $commandTester = new CommandTester($command);
+
+        $commandTester->execute([
+            'lockfile' => $lockFile,
+            '--allow-list' => [
+                'CVE-2017-9841'
+            ]
+        ]);
+
+        $this->assertEquals(0, $commandTester->getStatusCode());
+        $this->assertTrue(strpos($commandTester->getDisplay(), '[OK] 0 packages have known vulnerabilities') !== false);
+    }
+
+    /**
+     * @test
+     */
+    public function can_allow_vulnerabilities_by_title()
+    {
+        $lockFile = $this->getFixturesDirectory().DIRECTORY_SEPARATOR.'vulnerable-dev.lock';
+
+        $command = new SecurityCheckerCommand;
+        $commandTester = new CommandTester($command);
+
+        $commandTester->execute([
+            'lockfile' => $lockFile,
+            '--allow-list' => [
+                'RCE vulnerability in phpunit'
+            ]
+        ]);
+
+        $this->assertEquals(0, $commandTester->getStatusCode());
+        $this->assertTrue(strpos($commandTester->getDisplay(), '[OK] 0 packages have known vulnerabilities') !== false);
+    }
+
     protected function getFixturesDirectory()
     {
         return __DIR__.DIRECTORY_SEPARATOR.'Fixtures';
