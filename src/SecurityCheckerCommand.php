@@ -25,6 +25,7 @@ class SecurityCheckerCommand extends Command
                 new InputOption('no-dev', null, InputOption::VALUE_NONE, 'Whether to exclude dev packages from scanning'),
                 new InputOption('format', null, InputOption::VALUE_REQUIRED, 'The output format', 'ansi'),
                 new InputOption('temp-dir', null, InputOption::VALUE_REQUIRED, 'The temp directory to use for caching', null),
+                new InputOption('allow-list', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'List of vulnerabilities to allow', []),
             ])
             ->setDescription('Checks for vulnerabilities in your project dependencies')
             ->setHelp(
@@ -42,6 +43,10 @@ By default, the command displays the result in ansi, but you can also
 configure it to output JSON instead by using the <info>--format</info> option:
 
 <info>php %command.full_name% /path/to/composer.lock --format=json</info>
+
+You can specify a list of vulnerabilities to allow by using the CVE identifier or the vulnerability title:
+
+<info>php %command.full_name% /path/to/composer.lock --allow-list CVE-2018-15133 --allow-list "untrusted X-XSRF-TOKEN value"</info>
 EOF
             );
     }
@@ -60,8 +65,14 @@ EOF
 
         $tempDir = $input->getOption('temp-dir');
 
+        $allowList = $input->getOption('allow-list');
+
         try {
-            $result = (new SecurityChecker($tempDir))->check($input->getArgument('lockfile'), $excludeDev);
+            $result = (new SecurityChecker($tempDir))->check(
+                $input->getArgument('lockfile'),
+                $excludeDev,
+                $allowList
+            );
 
             $formatter->displayResult($output, $result);
         } catch (Exception $throwable) {
