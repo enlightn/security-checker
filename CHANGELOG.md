@@ -1,6 +1,11 @@
 # Release Notes
 
-## [Unreleased](https://github.com/enlightn/security-checker/compare/v1.8.0...master)
+## [Unreleased](https://github.com/enlightn/security-checker/compare/v1.9.0...master)
+
+## [v1.9.0 (2021-05-06)](https://github.com/enlightn/security-checker/compare/v1.8.0...v1.9.0)
+
+### Added
+- Add allow list option to exclude vulnerabilities by CVE or title ([#21](https://github.com/enlightn/security-checker/pull/21))
 
 ## [v1.8.0 (2021-04-19)](https://github.com/enlightn/security-checker/compare/v1.7.0...v1.8.0)
 
