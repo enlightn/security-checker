@@ -7,7 +7,10 @@ use PHPUnit\Framework\TestCase;
 
 class AdvisoryParserTest extends TestCase
 {
-    protected AdvisoryParser $parser;
+    /**
+     * @var \Enlightn\SecurityChecker\AdvisoryParser
+     */
+    protected $parser;
 
     public function setUp(): void
     {
