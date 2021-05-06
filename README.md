@@ -60,7 +60,7 @@ php security-checker security:check /path/to/composer.lock --no-dev
 
 ### Allow vulnerabilities
 
-If you would like to exclude some vulnerability, you can use the option `--allow-list` passing the CVE identifier or the CVE title as value, you can pass multiple values too:
+If you would like to exclude some vulnerabilities, you may use the `--allow-list` option by passing the CVE identifier, or the CVE title. You can pass multiple values as well:
 
 ```bash
 php security-checker security:check /path/to/composer.lock --allow-list CVE-2018-15133 --allow-list "untrusted X-XSRF-TOKEN value"
