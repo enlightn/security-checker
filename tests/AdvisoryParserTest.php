@@ -12,20 +12,13 @@ class AdvisoryParserTest extends TestCase
      */
     protected $parser;
 
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->parser = new AdvisoryParser(
-            $this->getFixturesDirectory().DIRECTORY_SEPARATOR.'php_security_advisories'
-        );
-    }
-
     /**
      * @test
      */
     public function parses_advisories()
     {
+        $this->getAdvisoryParser();
+
         $advisories = $this->parser->getAdvisories();
 
         $this->assertContains([
@@ -66,6 +59,8 @@ class AdvisoryParserTest extends TestCase
      */
     public function ignores_vulnerabilities_from_allow_list_by_vce()
     {
+        $this->getAdvisoryParser();
+
         $advisories = $this->parser->getAdvisories([
             'CVE-2017-9303'
         ]);
@@ -108,6 +103,8 @@ class AdvisoryParserTest extends TestCase
      */
     public function ignores_vulnerabilities_from_allow_list_by_title()
     {
+        $this->getAdvisoryParser();
+
         $advisories = $this->parser->getAdvisories([
             'Risk of mass-assignment vulnerabilities'
         ]);
@@ -148,5 +145,12 @@ class AdvisoryParserTest extends TestCase
     protected function getFixturesDirectory()
     {
         return __DIR__.DIRECTORY_SEPARATOR.'Fixtures';
+    }
+
+    protected function getAdvisoryParser()
+    {
+        $this->parser = new AdvisoryParser(
+            $this->getFixturesDirectory() . DIRECTORY_SEPARATOR . 'php_security_advisories'
+        );
     }
 }
