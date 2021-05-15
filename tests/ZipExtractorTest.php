@@ -50,6 +50,46 @@ class ZipExtractorTest extends TestCase
         $this->cleanExtractDirectory($this->getExtractDirectory());
     }
 
+    /**
+     * @test
+     */
+    public function can_i_chose_extracting_with_zip_commend()
+    {
+        $extractorMock = $this->getMockBuilder(ZipExtractor::class)
+            ->setMethods(['extractWithSystemUnzip'])
+            ->getMock();
+
+        $extractorMock->expects($this->once())
+            ->method('extractWithSystemUnzip')
+            ->with($this->identicalTo("arquive/path", "extract/path"));
+
+        $extractorMock->extract(
+            "arquive/path",
+            "extract/path",
+            "system-unzip"
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function can_i_chose_extracting_with_zip_extension()
+    {
+        $extractorMock = $this->getMockBuilder(ZipExtractor::class)
+            ->setMethods(['extractWithZipArchive'])
+            ->getMock();
+
+        $extractorMock->expects($this->once())
+            ->method('extractWithZipArchive')
+            ->with($this->identicalTo("arquive/path", "extract/path"));
+
+        $extractorMock->extract(
+            "arquive/path",
+            "extract/path",
+            "zip-extension"
+        );
+    }
+
     protected function cleanExtractDirectory($extractPath)
     {
         (new Filesystem)->deleteDirectory($extractPath);

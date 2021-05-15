@@ -14,8 +14,20 @@ class ZipExtractor
      * @param string $archivePath
      * @param string $extractPath
      */
-    public function extract($archivePath, $extractPath)
+    public function extract($archivePath, $extractPath, $useExt = null)
     {
+        if ($useExt === "system-unzip") {
+            $this->extractWithSystemUnzip($archivePath, $extractPath);
+             
+            return;
+        }
+
+        if ($useExt === "zip-extension") {
+            $this->extractWithZipArchive($archivePath, $extractPath);
+             
+            return;
+        }
+
         if ($this->unzipCommandExists()) {
             $this->extractWithSystemUnzip($archivePath, $extractPath);
 
