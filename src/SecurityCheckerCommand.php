@@ -49,9 +49,11 @@ You can specify a list of vulnerabilities to allow by using the CVE identifier o
 
 <info>php %command.full_name% /path/to/composer.lock --allow-list CVE-2018-15133 --allow-list "untrusted X-XSRF-TOKEN value"</info>
 
-By default the Security checker will use the OS unzip command and if your System does not have this command the PHP Zip Extension will be used.
+By default the Security checker will use the unzip command and if your System does not have this command the PHP Zip Extension will be used instead.
 
-You can chose wich tool Security Checker will user for extract the vulnerability database with the option <info>--use-ext</info>
+You can use the option <info>--use-ext</info> with the value `system-unzip` to force security checker to use the system unzip command and with the value `zip-extension` to force PHP Zip Extension
+
+<info>php %command.full_name% /path/to/composer.lock --use-ext system-unzip"</info>
 EOF
             );
     }

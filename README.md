@@ -102,6 +102,17 @@ The result above is an associative array. The key is the package name and the va
 }
 ```
 
+## Chosing ZIP tool
+
+Security checker needs to extract the vulnerability database in order to check the vulnerabilities, the option `--use-ext` will instruct security checker to use a specific tool to extract the database:
+
+```bash
+php security-checker security:check /path/to/composer.lock --use-ext system-unzip
+```
+
+Use the value `system-unzip` to use the system unzip command and the value `zip-extension` to use PHP Zip Extension. By default security checker will use the zip command and if the system does not have this command the PHP Zip Extension will be user.
+
+**OBS:** Values different than `system-unzip` or `zip-extension` will be silently ignored
 ## Contribution Guide
 
 Thank you for considering contributing to the Enlightn security-checker project! The contribution guide can be found [here](https://www.laravel-enlightn.com/docs/getting-started/contribution-guide.html).

@@ -53,15 +53,19 @@ class ZipExtractorTest extends TestCase
     /**
      * @test
      */
-    public function can_i_chose_extracting_with_zip_commend()
+    public function can_i_chose_extracting_with_zip_command()
     {
         $extractorMock = $this->getMockBuilder(ZipExtractor::class)
-            ->setMethods(['extractWithSystemUnzip'])
+            ->onlyMethods(['extractWithSystemUnzip', 'unzipCommandExists'])
             ->getMock();
 
         $extractorMock->expects($this->once())
             ->method('extractWithSystemUnzip')
             ->with($this->identicalTo("arquive/path", "extract/path"));
+
+        //avoids false positive
+        $extractorMock->expects($this->never())
+            ->method('unzipCommandExists');
 
         $extractorMock->extract(
             "arquive/path",
@@ -76,12 +80,16 @@ class ZipExtractorTest extends TestCase
     public function can_i_chose_extracting_with_zip_extension()
     {
         $extractorMock = $this->getMockBuilder(ZipExtractor::class)
-            ->setMethods(['extractWithZipArchive'])
+            ->onlyMethods(['extractWithZipArchive', 'unzipCommandExists'])
             ->getMock();
 
         $extractorMock->expects($this->once())
             ->method('extractWithZipArchive')
             ->with($this->identicalTo("arquive/path", "extract/path"));
+
+        //avoids false positive
+        $extractorMock->expects($this->never())
+            ->method('unzipCommandExists');
 
         $extractorMock->extract(
             "arquive/path",
