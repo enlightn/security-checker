@@ -62,7 +62,7 @@ class AdvisoryParserTest extends TestCase
         $this->getAdvisoryParser();
 
         $advisories = $this->parser->getAdvisories([
-            'CVE-2017-9303'
+            'CVE-2017-9303',
         ]);
 
         $this->assertContains([
@@ -106,7 +106,7 @@ class AdvisoryParserTest extends TestCase
         $this->getAdvisoryParser();
 
         $advisories = $this->parser->getAdvisories([
-            'Risk of mass-assignment vulnerabilities'
+            'Risk of mass-assignment vulnerabilities',
         ]);
 
         $this->assertNotContains([

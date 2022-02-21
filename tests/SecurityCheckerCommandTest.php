@@ -96,8 +96,8 @@ class SecurityCheckerCommandTest extends TestCase
         $commandTester->execute([
             'lockfile' => $lockFile,
             '--allow-list' => [
-                'CVE-2017-9841'
-            ]
+                'CVE-2017-9841',
+            ],
         ]);
 
         $this->assertEquals(0, $commandTester->getStatusCode());
@@ -117,8 +117,8 @@ class SecurityCheckerCommandTest extends TestCase
         $commandTester->execute([
             'lockfile' => $lockFile,
             '--allow-list' => [
-                'RCE vulnerability in phpunit'
-            ]
+                'RCE vulnerability in phpunit',
+            ],
         ]);
 
         $this->assertEquals(0, $commandTester->getStatusCode());
