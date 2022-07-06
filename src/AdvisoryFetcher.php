@@ -2,15 +2,22 @@
 
 namespace Enlightn\SecurityChecker;
 
-use GuzzleHttp\Client;
+use Http\Client\HttpClient;
+use Http\Discovery\Psr17FactoryDiscovery;
 use Psr\Http\Message\ResponseInterface;
+use Http\Discovery\HttpClientDiscovery;
 
 class AdvisoryFetcher
 {
     /**
-     * @var \GuzzleHttp\Client
+     * @var \Http\Client\HttpClient
      */
     private $client;
+
+    /**
+     * @var \Psr\Http\Message\RequestFactoryInterface
+     */
+    private $requestFactory;
 
     /**
      * @var string
@@ -25,15 +32,14 @@ class AdvisoryFetcher
 
     const EXTRACT_PATH = 'php_security_advisories';
 
+
     public function __construct($tempDir = null)
     {
-        $this->client = new Client();
+        $this->client = HttpClientDiscovery::find();
+        $this->requestFactory = Psr17FactoryDiscovery::findRequestFactory();
         $this->tempDir = is_null($tempDir) ? sys_get_temp_dir() : $tempDir;
     }
 
-    /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
     public function fetchAdvisories()
     {
         $archivePath = $this->fetchAdvisoriesArchive();
@@ -48,28 +54,22 @@ class AdvisoryFetcher
 
     /**
      * @return string
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function fetchAdvisoriesArchive()
     {
-        $headers = [];
+        $request = $this->requestFactory->createRequest('GET', self::ADVISORIES_URL);
         $cacheResult = [];
 
         if (! empty($cache = $this->getCacheFile())) {
             $cacheResult = json_decode($cache, true);
-
             if (is_file($cacheResult['ArchivePath'])) {
                 // Set cache headers only if both the cache file and archive file exist.
-                $headers = [
-                    'If-None-Match' => $cacheResult['Key'],
-                    'If-Modified-Since' => $cacheResult['Date'],
-                ];
+                $request = $request->withHeader('If-None-Match', $cacheResult['Key']);
+                $request = $request->withHeader('If-Modified-Since', $cacheResult['Date']);
             }
         }
 
-        $response = $this->client->get(self::ADVISORIES_URL, [
-            'headers' => $headers,
-        ]);
+        $response = $this->client->sendRequest($request);
 
         if ($response->getStatusCode() !== 304) {
             $this->writeCacheFile($response);
@@ -119,7 +119,7 @@ class AdvisoryFetcher
         return $this->tempDir.DIRECTORY_SEPARATOR.self::EXTRACT_PATH;
     }
 
-    public function setClient(Client $client)
+    public function setClient(HttpClient $client)
     {
         $this->client = $client;
     }
@@ -133,5 +133,13 @@ class AdvisoryFetcher
         ];
 
         file_put_contents($this->getCacheFilePath(), json_encode($cache), LOCK_EX);
+    }
+
+    /**
+     * @return HttpClient
+     */
+    public function getClient()
+    {
+        return $this->client;
     }
 }

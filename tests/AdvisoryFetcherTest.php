@@ -4,9 +4,9 @@ namespace Enlightn\SecurityChecker\Tests;
 
 use Enlightn\SecurityChecker\AdvisoryFetcher;
 use Enlightn\SecurityChecker\Filesystem;
-use GuzzleHttp\Client;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Middleware;
+use Enlightn\SecurityChecker\Tests\Journal\SimpleArray;
+use Http\Client\Common\Plugin\HistoryPlugin;
+use Http\Client\Common\PluginClient;
 use PHPUnit\Framework\TestCase;
 
 class AdvisoryFetcherTest extends TestCase
@@ -17,10 +17,14 @@ class AdvisoryFetcherTest extends TestCase
     public function fetches_archives_with_and_without_cache()
     {
         $fetcher = new AdvisoryFetcher;
-        $container = [];
-        $fetcher->setClient(new Client([
-            'handler' => $this->setupHistoryMiddleware($container),
-        ]));
+        $journal = new SimpleArray;
+
+        $pluginClient = new PluginClient(
+            $fetcher->getClient(),
+            [new HistoryPlugin($journal)]
+        );
+
+        $fetcher->setClient($pluginClient);
 
         // Test for non-cached version.
         $this->cleanCacheFiles($fetcher);
@@ -30,8 +34,8 @@ class AdvisoryFetcherTest extends TestCase
         $this->assertTrue(is_dir($fetcher->getExtractDirectoryPath()));
         $this->assertTrue(is_file($fetcher->getCacheFilePath()));
         $this->assertTrue(is_file($fetcher->getExtractDirectoryPath().DIRECTORY_SEPARATOR.$this->getSampleFileToValidate()));
-        $this->assertCount(1, $container);
-        $this->assertSame(200, $container[0]['response']->getStatusCode());
+        $this->assertCount(1, $journal->successes);
+        $this->assertSame(200, $journal->successes[0][1]->getStatusCode());
 
         // Test for cached version.
         $this->cleanExtractDirectory($fetcher);
@@ -40,8 +44,8 @@ class AdvisoryFetcherTest extends TestCase
         $this->assertTrue(is_dir($fetcher->getExtractDirectoryPath()));
         $this->assertTrue(is_file($fetcher->getCacheFilePath()));
         $this->assertTrue(is_file($fetcher->getExtractDirectoryPath().DIRECTORY_SEPARATOR.$this->getSampleFileToValidate()));
-        $this->assertCount(2, $container);
-        $this->assertSame(304, $container[1]['response']->getStatusCode());
+        $this->assertCount(2, $journal->successes);
+        $this->assertSame(304, $journal->successes[1][1]->getStatusCode());;
 
         $this->cleanCacheFiles($fetcher);
     }
@@ -56,14 +60,6 @@ class AdvisoryFetcherTest extends TestCase
     {
         @unlink($fetcher->getCacheFilePath());
         @unlink($fetcher->getArchiveFilePath());
-    }
-
-    protected function setupHistoryMiddleware(&$container)
-    {
-        $handlerStack = HandlerStack::create();
-        $handlerStack->push(Middleware::history($container));
-
-        return $handlerStack;
     }
 
     protected function getSampleFileToValidate()

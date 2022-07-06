@@ -19,7 +19,6 @@ class SecurityChecker
      * @param false $excludeDev
      * @param array $allowList
      * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function check($composerLockPath, $excludeDev = false, $allowList = [])
     {
