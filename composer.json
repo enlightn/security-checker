@@ -25,7 +25,7 @@
         "issues": "https://github.com/enlightn/security-checker/issues"
     },
     "require": {
-        "php": "^7",
+        "php": ">=8.2",
         "ext-json": "*",
         "symfony/console": "^7",
         "symfony/finder": "^3|^4|^5|^6|^7",
