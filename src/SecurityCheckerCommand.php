@@ -57,7 +57,7 @@ EOF
      * @return int
      * @see Command
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $formatter = $input->getOption('format') == 'ansi' ? new AnsiFormatter : new JsonFormatter;
 
