@@ -125,6 +125,42 @@ class SecurityCheckerCommandTest extends TestCase
         $this->assertTrue(strpos($commandTester->getDisplay(), '[OK] 0 packages have known vulnerabilities') !== false);
     }
 
+    /**
+     * @test
+     */
+    public function can_chose_unzip_with_unzip_command()
+    {
+        $lockFile = $this->getFixturesDirectory().DIRECTORY_SEPARATOR.'installed.lock';
+
+        $command = new SecurityCheckerCommand;
+        $commandTester = new CommandTester($command);
+
+        $commandTester->execute([
+            'lockfile' => $lockFile,
+            '--use-ext' => 'system-unzip'
+        ]);
+
+        $this->assertEquals(1, $commandTester->getStatusCode());
+    }
+
+    /**
+     * @test
+     */
+    public function can_chose_unzip_with_php_zip_extension()
+    {
+        $lockFile = $this->getFixturesDirectory().DIRECTORY_SEPARATOR.'installed.lock';
+
+        $command = new SecurityCheckerCommand;
+        $commandTester = new CommandTester($command);
+
+        $commandTester->execute([
+            'lockfile' => $lockFile,
+            '--use-ext' => 'zip-extension'
+        ]);
+
+        $this->assertEquals(1, $commandTester->getStatusCode());
+    }
+
     protected function getFixturesDirectory()
     {
         return __DIR__.DIRECTORY_SEPARATOR.'Fixtures';

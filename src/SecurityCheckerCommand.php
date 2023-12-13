@@ -26,6 +26,7 @@ class SecurityCheckerCommand extends Command
                 new InputOption('format', null, InputOption::VALUE_REQUIRED, 'The output format', 'ansi'),
                 new InputOption('temp-dir', null, InputOption::VALUE_REQUIRED, 'The temp directory to use for caching', null),
                 new InputOption('allow-list', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'List of vulnerabilities to allow', []),
+                new InputOption('use-ext', null, InputOption::VALUE_REQUIRED, 'Force a specific unzip tool', null)
             ])
             ->setDescription('Checks for vulnerabilities in your project dependencies')
             ->setHelp(
@@ -47,6 +48,12 @@ configure it to output JSON instead by using the <info>--format</info> option:
 You can specify a list of vulnerabilities to allow by using the CVE identifier or the vulnerability title:
 
 <info>php %command.full_name% /path/to/composer.lock --allow-list CVE-2018-15133 --allow-list "untrusted X-XSRF-TOKEN value"</info>
+
+By default the Security checker will use the unzip command and if your System does not have this command the PHP Zip Extension will be used instead.
+
+You can use the option <info>--use-ext</info> with the value `system-unzip` to force security checker to use the system unzip command and with the value `zip-extension` to force PHP Zip Extension
+
+<info>php %command.full_name% /path/to/composer.lock --use-ext system-unzip"</info>
 EOF
             );
     }
@@ -67,11 +74,14 @@ EOF
 
         $allowList = $input->getOption('allow-list');
 
+        $useExt = $input->getOption('use-ext');
+
         try {
             $result = (new SecurityChecker($tempDir))->check(
                 $input->getArgument('lockfile'),
                 $excludeDev,
-                $allowList
+                $allowList,
+                $useExt
             );
 
             $formatter->displayResult($output, $result);
